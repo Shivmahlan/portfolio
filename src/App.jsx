@@ -10,6 +10,7 @@ import {
 import { useReducedMotion } from 'motion/react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { RESUME_B64 } from './resume-base64';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -465,7 +466,7 @@ export default function App() {
                   {resume.certs.map((c) => <p key={c}>{c}</p>)}
                 </div>
               </div>
-              <a className="contact-link" href="/resume.pdf" target="_blank" rel="noreferrer">Download full résumé (PDF) <ArrowUpRight size={17} weight="bold" /></a>
+              <a className="contact-link" href={`data:application/pdf;base64,${RESUME_B64}`} download="Shiv_Kumar_Resume.pdf" target="_blank" rel="noreferrer">Download full résumé (PDF) <ArrowUpRight size={17} weight="bold" /></a>
             </div>
           )}
         </div>
