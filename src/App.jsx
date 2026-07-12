@@ -82,7 +82,7 @@ const resume = {
   ],
   experience: [
     ['Project Intern — Ransomware Simulator', 'CDAC Noida · May–Jun 2025', 'Built a controlled ransomware simulator modeling file-encryption attacks and lateral movement in sandboxes; documented recovery workflows.'],
-    ['AI Intern — Career-Mitar (Edunet × IBM)', 'Edunet Foundation × IBM SkillsBuild · Jun–Jul 2025', 'Built Career-Mitar, an AI career-guidance agent (Flask + IBM watsonx.ai) for resume analysis, skill-gap detection, roadmaps, and interview prep; shipped a working prototype.'],
+    ['AI Intern — Career-Mitar (Edunet × IBM)', 'Edunet Foundation × IBM SkillsBuild · Jun–Jul 2026', 'Built Career-Mitar, an AI career-guidance agent (Flask + IBM watsonx.ai) for resume analysis, skill-gap detection, roadmaps, and interview prep; shipped a working prototype.'],
     ['dcleaner — Python Data-Cleaning Library', 'Published on PyPI · 2025', 'Authored and published dcleaner, a fluent, low-boilerplate data-cleaning & visualization library on top of pandas; chainable API, CI, docs.'],
     ['Career-Mitar — AI Career-Guidance Agent', 'Personal project · 2025', 'AI agent that analyzes a resume, detects skill gaps, and generates learning roadmaps + interview-prep plans via IBM watsonx.ai prompt pipelines.'],
   ],
