@@ -1,0 +1,164 @@
+import {
+  ArrowUpRight,
+  EnvelopeSimple,
+  GithubLogo,
+  LinkedinLogo,
+  List,
+  SealCheck,
+} from '@phosphor-icons/react';
+import { motion, useReducedMotion } from 'motion/react';
+
+const projects = [
+  {
+    name: 'Demand Signal',
+    type: 'Forecasting system',
+    image: '/forecasting-study.png',
+    description: 'A forecasting workflow that turns seasonality, pricing, and stock signals into weekly decisions.',
+    meta: 'Forecasting - Python - Model evaluation',
+  },
+  {
+    name: 'Trust Map',
+    type: 'Risk intelligence',
+    image: '/network-study.png',
+    description: 'Graph-based anomaly detection for relationships that deserve a closer look.',
+    meta: 'Network analysis - SQL - Investigation',
+  },
+  {
+    name: 'Listening Room',
+    type: 'Language analysis',
+    image: '/model-landscape.png',
+    description: 'A practical NLP workflow for reading patterns across unstructured feedback.',
+    meta: 'NLP - Qualitative data - Research',
+  },
+];
+
+const methods = [
+  ['Frame the question', 'Clarify the decision, the evidence, and what good looks like before modeling.'],
+  ['Interrogate the data', 'Trace each signal to its source, then test the gaps and assumptions.'],
+  ['Make it usable', 'Build outputs that a person can understand and act on.'],
+  ['Keep learning', 'Monitor the system and let feedback improve the next version.'],
+];
+
+function Reveal({ children, delay = 0, className = '' }) {
+  const reduceMotion = useReducedMotion();
+  return (
+    <motion.div
+      className={className}
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.16 }}
+      transition={{ duration: 0.65, delay, ease: [0.16, 1, 0.3, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+function App() {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <main>
+      <nav className="nav shell" aria-label="Primary navigation">
+        <span className="nav-place">Independent practice</span>
+        <a className="wordmark" href="#top">Shiv's Data Ledger</a>
+        <a className="nav-menu" href="#work" aria-label="View selected work"><List size={26} /></a>
+      </nav>
+
+      <section className="hero shell" id="top">
+        <motion.div
+          className="hero-intro"
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p>I’m Shiv, a data scientist building thoughtful models, useful tools, and honest explanations.</p>
+          <a href="#contact">Work together <ArrowUpRight size={17} weight="bold" /></a>
+        </motion.div>
+        <div className="hero-title-wrap" aria-label="Data science, made legible">
+          <h1>Data<br /><span>science</span></h1>
+          <p className="hero-side-note">Careful systems for decisions that matter.</p>
+        </div>
+        <motion.div
+          className="hero-art"
+          initial={reduceMotion ? false : { opacity: 0, scale: 0.97 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.9, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <img src="/network-study.png" alt="Archival illustration of a human form and connected nodes" />
+        </motion.div>
+      </section>
+
+      <section className="masthead" aria-label="Portfolio declaration">
+        <div className="shell"><p>Made legible</p></div>
+      </section>
+
+      <section className="work shell" id="work">
+        <Reveal className="work-heading">
+          <p className="kicker">Selected work</p>
+          <h2>Evidence, not spectacle.</h2>
+          <p>I use data to make a complex situation more navigable. The work starts with a real question, not a model in search of one.</p>
+        </Reveal>
+        <div className="project-grid">
+          {projects.map((project, index) => (
+            <Reveal key={project.name} delay={index * 0.08}>
+              <article className={`project project-${index + 1}`}>
+                <img src={project.image} alt="" />
+                <div className="project-copy">
+                  <div className="project-title"><h3>{project.name}</h3><span>New</span></div>
+                  <p className="project-type">{project.type}</p>
+                  <p>{project.description}</p>
+                  <small>{project.meta}</small>
+                  <a href="#contact">Discuss this case study <ArrowUpRight size={17} weight="bold" /></a>
+                </div>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="method shell" id="method">
+        <div className="method-lead">
+          <Reveal>
+            <p className="kicker">Working method</p>
+            <h2>A model is only useful when people can use it.</h2>
+          </Reveal>
+        </div>
+        <div className="method-list">
+          {methods.map(([title, description], index) => (
+            <Reveal key={title} delay={index * 0.06}>
+              <article className="method-item">
+                <span>{String(index + 1).padStart(2, '0')}</span>
+                <h3>{title}</h3>
+                <p>{description}</p>
+              </article>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="profile shell">
+        <div className="profile-seal" aria-hidden="true"><SealCheck size={62} weight="duotone" /></div>
+        <Reveal className="profile-copy">
+          <p className="kicker">Tools of the trade</p>
+          <h2>Python, SQL, machine learning, experiment design, and data storytelling.</h2>
+          <p>Technical depth matters. So does knowing when a simpler approach tells the truth more clearly.</p>
+        </Reveal>
+      </section>
+
+      <footer className="contact shell" id="contact">
+        <Reveal>
+          <p className="kicker">Start here</p>
+          <h2>Have data that deserves a better question?</h2>
+          <a className="contact-link" href="mailto:hello@example.com">Send an email <EnvelopeSimple size={19} weight="bold" /></a>
+          <div className="social-links" aria-label="Social links">
+            <a href="https://github.com/" aria-label="GitHub"><GithubLogo size={22} weight="bold" /></a>
+            <a href="https://www.linkedin.com/" aria-label="LinkedIn"><LinkedinLogo size={22} weight="bold" /></a>
+          </div>
+        </Reveal>
+      </footer>
+    </main>
+  );
+}
+
+export default App;
