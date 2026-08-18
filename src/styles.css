@@ -57,7 +57,7 @@ img { display: block; max-width: 100%; }
 /* Nav */
 .nav { min-height: 65px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; border-bottom: 1px solid var(--ink); font-size: 1rem; }
 .nav-place { color: var(--charcoal); }
-.wordmark { font-size: 1.2rem; letter-spacing: -.035em; }
+.wordmark { font-size: 1.2rem; letter-spacing: -.035em; display: inline-flex; align-items: center; gap: .5rem; }
 .nav-menu { justify-self: end; display: grid; place-items: center; width: 32px; height: 32px; }
 .nav-menu:hover, .hero-intro a:hover, .project a:hover, .contact-link:hover { color: var(--ember); }
 

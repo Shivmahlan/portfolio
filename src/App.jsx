@@ -55,19 +55,19 @@ const ghRepos = [
 ];
 
 const LEET_FALLBACK = {
-  solved: 23, total: 3989, acceptance: '100%',
-  easy: '10 / 954', medium: '12 / 2083', hard: '1 / 952',
+  solved: 38, total: 4029, acceptance: '90%',
+  easy: '17 / 960', medium: '18 / 2103', hard: '3 / 966',
   languages: ['Python', 'Python3', 'MySQL'],
   skills: ['Database', 'Dynamic Programming', 'Hash Table', 'String', 'Array', 'Math', 'Linked List'],
-  rank: '4,005,052', live: false,
+  rank: '3,162,791', live: false,
 };
 
 // Personal snapshots shown in the intro gallery (real photos from /public/life).
 const life = [
-  { src: '/life/hoodie2.png', caption: 'Me, mid-scroll, zero plans', rotate: 0 },
-  { src: '/life/tabby.jpg', caption: 'Meow meow, judging my screen time' },
-  { src: '/life/stars.jpg', caption: 'Clicked this at night instead of sleeping' },
-  { src: '/life/sunset.jpg', caption: 'Golden hour, no notifications' },
+  { src: '/life/hoodie2.webp', caption: 'Me, mid-scroll, zero plans', rotate: 0 },
+  { src: '/life/tabby.webp', caption: 'Meow meow, judging my screen time' },
+  { src: '/life/stars.webp', caption: 'Clicked this at night instead of sleeping' },
+  { src: '/life/sunset.webp', caption: 'Golden hour, no notifications' },
 ];
 
 const resume = {
@@ -107,23 +107,40 @@ export default function App() {
   const panelRef = useRef(null);
   const galleryRef = useRef(null);
 
-  // Fetch live LeetCode stats; falls back to résumé values if the API is unreachable.
+  // Fetch live LeetCode stats. The alfa-leetcode-api was restructured:
+  //   /<user>      -> profile only (ranking, avatar)
+  //   /<user>/solved -> solved counts + submission tallies
+  // We hit both and merge. Falls back to LEET_FALLBACK if the API is unreachable.
   useEffect(() => {
     let cancelled = false;
-    fetch('https://alfa-leetcode-api.onrender.com/shivmahlan')
-      .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((d) => {
+    const BASE = 'https://alfa-leetcode-api.onrender.com/shivmahlan';
+    const tally = (arr, key) =>
+      (arr || []).find((x) => x.difficulty === 'All')?.[key] ?? null;
+    Promise.all([
+      fetch(BASE).then((r) => (r.ok ? r.json() : Promise.reject())),
+      fetch(`${BASE}/solved`).then((r) => (r.ok ? r.json() : Promise.reject())),
+    ])
+      .then(([profile, solved]) => {
         if (cancelled) return;
+        const totSub = tally(solved.totalSubmissionNum, 'submissions');
+        const acSub = tally(solved.acSubmissionNum, 'submissions');
+        const acceptance =
+          totSub && acSub != null
+            ? `${Math.round((acSub / totSub) * 100)}%`
+            : LEET_FALLBACK.acceptance;
+        const totalEasy = LEET_FALLBACK.easy.split(' / ')[1];
+        const totalMedium = LEET_FALLBACK.medium.split(' / ')[1];
+        const totalHard = LEET_FALLBACK.hard.split(' / ')[1];
         setLeet({
-          solved: d.totalSolved ?? LEET_FALLBACK.solved,
-          total: d.totalQuestions ?? LEET_FALLBACK.total,
-          acceptance: d.acceptanceRate != null ? `${d.acceptanceRate}%` : LEET_FALLBACK.acceptance,
-          easy: `${d.easySolved ?? 10} / ${d.totalEasy ?? 954}`,
-          medium: `${d.mediumSolved ?? 12} / ${d.totalMedium ?? 2083}`,
-          hard: `${d.hardSolved ?? 1} / ${d.totalHard ?? 952}`,
+          solved: solved.solvedProblem ?? LEET_FALLBACK.solved,
+          total: LEET_FALLBACK.total,
+          acceptance,
+          easy: `${solved.easySolved ?? 17} / ${totalEasy}`,
+          medium: `${solved.mediumSolved ?? 18} / ${totalMedium}`,
+          hard: `${solved.hardSolved ?? 3} / ${totalHard}`,
           languages: LEET_FALLBACK.languages,
           skills: LEET_FALLBACK.skills,
-          rank: d.ranking != null ? d.ranking.toLocaleString('en-US') : LEET_FALLBACK.rank,
+          rank: profile.ranking != null ? profile.ranking.toLocaleString('en-US') : LEET_FALLBACK.rank,
           live: true,
         });
       })
@@ -290,7 +307,7 @@ export default function App() {
 
         <div className="hero-center">
           <div className="hero-portrait" data-cursor>
-            <img src="/hero-portrait.jpg" alt="Shiv Kumar" />
+            <img src="/hero-portrait.webp" alt="Shiv Kumar" width="1200" height="1198" />
           </div>
 
           <div className="orbit" data-cursor aria-hidden="true">
@@ -414,7 +431,7 @@ export default function App() {
             <a className="pkg" href="https://pypi.org/project/dcleaner/" target="_blank" rel="noreferrer" data-cursor>
               <h3>dcleaner</h3>
               <p>Fluent, low-boilerplate data cleaning and visualization on top of pandas. MIT-licensed, released 10 Jul 2026.</p>
-              <span className="pkg-meta">Python package · v1.0.0 · pip install dcleaner</span>
+              <span className="pkg-meta">Python package · v0.1.5 · pip install dcleaner</span>
             </a>
           )}
           {activeTab === 'leetcode' && (

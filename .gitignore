@@ -10,3 +10,9 @@ npm-debug.log*
 .env.*
 .vercel
 .netlify
+
+# local-only originals moved out of public to slim the bundle
+_unused_assets/
+
+__pycache__/
+*.pyc
