@@ -64,7 +64,7 @@ const LEET_FALLBACK = {
 
 // Personal snapshots shown in the intro gallery (real photos from /public/life).
 const life = [
-  { src: '/life/hoodie2.webp', caption: 'Me, mid-scroll, zero plans', rotate: 0 },
+  { src: '/life/canopy.webp', caption: 'Looking up, clear skies', rotate: 0 },
   { src: '/life/tabby.webp', caption: 'Meow meow, judging my screen time' },
   { src: '/life/stars.webp', caption: 'Clicked this at night instead of sleeping' },
   { src: '/life/sunset.webp', caption: 'Golden hour, no notifications' },
